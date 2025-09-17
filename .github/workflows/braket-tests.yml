@@ -1,0 +1,33 @@
+name: AWS Braket Unit Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Dependencies
+      run: |
+        pip install amazon-braket-sdk
+
+    - name: Run Braket Tests
+      run: |
+        echo "------------Superposição---------------------------"
+        python Braket/double_hadamard_test.py
+        echo "------------Emaranhamento Quântico---------------------------"
+        python Braket/bell_state_test.py
+
