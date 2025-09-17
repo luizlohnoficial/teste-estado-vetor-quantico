@@ -1,0 +1,33 @@
+name: Cirq Unit Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Dependencies
+      run: |
+        pip install cirq numpy
+
+    - name: Run Cirq Tests
+      run: |
+        echo "------------Superposição---------------------------"
+        python Cirq/hadamard_test.py
+        echo "------------Emaranhamento Quântico---------------------------"
+        python Cirq/bell_state_test.py
+

@@ -1,0 +1,32 @@
+name: PennyLane Unit Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Dependencies
+      run: |
+        pip install pennylane numpy
+
+    - name: Run PennyLane Tests
+      run: |
+        echo "------------Superposição---------------------------"
+        python PennyLane/hadamard_test.py
+        echo "------------Emaranhamento Quântico---------------------------"
+        python PennyLane/bell_state_test.py
